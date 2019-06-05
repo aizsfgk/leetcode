@@ -1,0 +1,5 @@
+#!/bin/bash
+
+FILES=$(ls|grep -E "^[0-9]{1,}.*[^cpp]$")
+
+echo $FILES | xargs rm -rf {}

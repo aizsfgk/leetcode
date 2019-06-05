@@ -1,0 +1,46 @@
+#!/bin/bash
+
+FILENAME=$1
+if [[ -z $FILENAME && $FILENAME != "all" ]];then
+	echo "filename is null"
+	exit 1
+fi
+
+function complie_one() {
+	FILE=$1
+	OUTPUT=${FILE%.*}
+	echo "FILE: $FILE"
+	echo "OUTPUT: $OUTPUT"
+	g++ -std=c++11 $FILE -o $OUTPUT
+
+	echo ""
+	echo "start process $OUTPUT..."
+	echo ""
+	./$OUTPUT
+	echo "========"
+	echo ""
+}
+
+function complie_all() {
+	ALL_FILES=$(ls|grep -E ".*[cpp]$")
+	for ONE_FILE in ${ALL_FILES[@]}
+	do
+		echo complie_one $ONE_FILE
+		complie_one $ONE_FILE
+	done
+}
+
+function complie() {
+	if [[ $1 == "all" ]];then
+		complie_all
+	else
+		complie_one $1
+	fi
+}
+
+function main() {
+	### complie file ###
+	complie $1
+}
+
+main $FILENAME
