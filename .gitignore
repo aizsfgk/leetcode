@@ -1,0 +1,8 @@
+# ignore
+
+*
+!*.cpp
+!build
+!delete_exe_file
+!.gitignore
+!README.md
