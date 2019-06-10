@@ -49,6 +49,33 @@ public:
         }
         cout << endl;
     }
+
+    ListNode* linkReverse(ListNode *s) {
+        if (s == nullptr)
+            return s;
+
+        ListNode *cur,*next, *prev;
+        cur = s;
+        while (cur) {
+            next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+
+    ListNode* linkReverse2(ListNode*s) {
+        // 确定边界条件
+        if (s == nullptr || s->next == nullptr)
+            return s;
+
+        // 反转节点
+        ListNode *p = linkReverse2(s->next);
+        s->next->next = s;
+        s->next = nullptr;
+        return p;
+    }
 };
 
 int main(void) {
@@ -67,6 +94,15 @@ int main(void) {
     res = s->addTwoNumbers(l1, l2);
 
     s->linkPrint(res);
+
+    ListNode *rev;
+    rev = s->linkReverse(res);
+    s->linkPrint(rev);
+
+    ListNode *rev2;
+    rev2 = s->linkReverse2(rev);
+    s->linkPrint(rev2);
+
 
     return 0;
 }
